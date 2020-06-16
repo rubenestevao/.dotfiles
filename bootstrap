@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+
+# https://sookocheff.com/post/bash/parsing-bash-script-arguments-with-shopts/
+force=0
+while getopts "f" opt; do
+    case $opt in
+    (f) force=1;;
+    (*) printf "Illegal option '-%s'\n" "$opt" && exit 1 ;;
+    esac
+done
+
+DOTFILES="${DOTFILES:-$(dirname $0)}"
+
+# Loads functions
+for file in $DOTFILES/functions/*(N); do
+  source "$file"
+done
+
+# Adds to path dotfiles binaries
+path_append "$DOTFILES/bin"
+
+# bootstrap installs things.
+function bootstrapTerminal() {	
+	local patterns file
+    
+    patterns="*.sh"
+
+    if is-macos; then
+        patterns="$patterns|*.sh.macos"
+    fi
+
+    if is-ubuntu; then
+        patterns="$patterns|*.sh.ubuntu"
+    fi
+
+    for file in $(eval "echo $DOTFILES/install/($patterns)(N)"); do
+        source "$file"
+    done
+}
+
+
+echo 'Bootstrap terminal'
+echo '------------------'
+
+if [ $force = 1 ]; then
+    bootstrapTerminal
+    exit 0
+fi
+
+echo 'This will reset your terminal. Are you sure you want to to this? (y/n) '
+read 'reply?Answer: '
+
+if [[ "$reply" =~ ^[Yy]$ ]]; then
+    sudo -v #ask password beforehand
+    bootstrapTerminal
+fi
