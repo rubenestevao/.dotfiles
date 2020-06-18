@@ -1,5 +1,5 @@
 # Check for Homebrew and install if we don't have it
-if test ! $(which brew); then
+if [ ! -f "which brew" ]; then
   echo 'Install homebrew'
   echo '----------------'
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"

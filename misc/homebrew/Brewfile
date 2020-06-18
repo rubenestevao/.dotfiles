@@ -30,6 +30,7 @@ brew "dnsmasq", restart_service: true # Requested by Laravel Valet
 brew "nvm"
 
 # Apps
+cask "iterm2"
 cask "keepassxc"
 cask "caffeine"
 cask "firefox"
