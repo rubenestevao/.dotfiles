@@ -44,3 +44,5 @@
   enabled = 1
 [push]
   default = simple
+[pull]
+  rebase = false

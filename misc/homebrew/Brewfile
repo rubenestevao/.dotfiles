@@ -20,13 +20,6 @@ brew "svgo"
 brew "gifsicle"
 
 # Development
-brew "php"
-brew "php@7.3"
-brew "php@7.2"
-brew "composer"
-brew "mysql@5.7", restart_service: true, link: true
-brew "nginx", restart_service: true # Requested by Laravel Valet
-brew "dnsmasq", restart_service: true # Requested by Laravel Valet
 brew "nvm"
 
 # Apps
@@ -41,5 +34,5 @@ cask "imageoptim"
 cask "phpstorm"
 cask "skype"
 cask "visual-studio-code"
-cask "sequel-pro"
+cask "dbeaver-community"
 cask "inkscape"
